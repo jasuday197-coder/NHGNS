@@ -1,0 +1,6 @@
+{
+  "name": "Ngân Hàng Giọng Nói Số",
+  "description": "Nền tảng xã hội số bảo tồn di sản âm thanh tiếng Việt. Ứng dụng AI phân tích phương ngữ, tra cứu âm học vùng miền, dịch tiếng địa phương sang tiếng Việt phổ thông.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
