@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ngân hàng Giọng nói Số Bắc Trung Bộ</title>
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Core Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- TOP STICKY NAVBAR -->
+    <header class="sticky-navbar">
+      <div class="navbar-brand" onclick="switchTab('home-view')">
+        <div class="navbar-logo-icon">
+          <i class="fas fa-wave-square"></i>
+        </div>
+        <div class="navbar-brand-text">
+          <h1>Ngân hàng Giọng nói Số</h1>
+          <span>Bắc Trung Bộ</span>
+        </div>
+      </div>
+      
+      <ul class="navbar-menu">
+        <li class="navbar-link active" data-view="home-view">Trang chủ</li>
+        <li class="navbar-link" data-view="map-view">Bản đồ</li>
+        <li class="navbar-link" data-view="dictionary-view">Từ điển</li>
+        <li class="navbar-link" data-view="translator-view">Dịch thuật</li>
+        <li class="navbar-link" data-view="quizzes-view">Trò chơi</li>
+        <li class="navbar-link" data-view="admin-view">Admin</li>
+      </ul>
+      
+      <div class="header-stats">
+        <div class="stat-item" title="Tổng số bản ghi âm đã duyệt trên bản đồ">
+          <i class="fas fa-microphone"></i>
+          <span>Bản ghi:</span>
+          <strong class="stat-val" id="stat-records">0</strong>
+        </div>
+        <div class="stat-item" title="Tổng số cá nhân đóng góp giọng nói">
+          <i class="fas fa-users"></i>
+          <span>Loa giọng:</span>
+          <strong class="stat-val" id="stat-contributors">0</strong>
+        </div>
+        <div class="stat-item" title="Tổng số từ vựng trong từ điển phương ngữ">
+          <i class="fas fa-spell-check"></i>
+          <span>Từ vựng:</span>
+          <strong class="stat-val" id="stat-vocab">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN APP CONTENT VIEWPORT -->
+    <main class="main-content">
+      
+      <!-- VIEW PANELS CONTAINER -->
+      <section class="view-container">
+
+        <!-- ========================================== -->
+        <!-- VIEW 0: HOME LANDING PAGE -->
+        <!-- ========================================== -->
+        <div class="app-view active" id="home-view">
+          <div class="home-layout">
+            
+            <!-- Hero Section -->
+            <section class="hero-section">
+              <div class="hero-text">
+                <h2 class="hero-headline">Gìn giữ thanh âm xứ sở — <br><span>Ngân hàng Giọng nói Số Bắc Trung Bộ</span></h2>
+                
+                <p class="hero-desc">
+                  Dự án Ngân hàng Giọng nói Số là một nền tảng nghiên cứu phi lợi nhuận, được xây dựng nhằm lưu trữ, bảo tồn và tôn vinh sự phong phú của phương ngữ và văn hóa qua giọng nói của 6 tỉnh Bắc Trung Bộ. Chúng tôi cam kết dữ liệu tại đây hoàn toàn <strong>KHÔNG</strong> được sử dụng để sao chép giọng nói (Voice Cloning) hoặc phục vụ cho bất kỳ mục đích trục lợi bất chính nào.
+                </p>
+                
+                <div class="benefits-box">
+                  <span class="benefits-title"><i class="fas fa-shield-alt"></i> Lợi ích của dự án</span>
+                  <ul class="benefits-list">
+                    <li class="benefits-item">
+                      <i class="fas fa-check-circle"></i>
+                      <span><strong>Đối với cộng đồng:</strong> Bảo tồn sống động tiếng quê hương cho thế hệ mai sau, giúp người xa xứ tìm lại ký ức qua thanh âm địa phương.</span>
+                    </li>
+                    <li class="benefits-item">
+                      <i class="fas fa-check-circle"></i>
+                      <span><strong>Đối với giáo dục & nghiên cứu:</strong> Cung cấp kho ngữ liệu (Corpus) chuẩn hóa cho các nhà ngôn ngữ học và các mô hình AI tiếng Việt hiểu sâu hơn về phương ngữ.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="hero-image-container">
+                <img src="hero.png" alt="Bản đồ âm thanh Bắc Trung Bộ" class="hero-image">
+              </div>
+            </section>
+            
+            <!-- Core Features Grid -->
+            <section class="features-section">
+              <h3 class="section-title">Khám phá các tính năng chính</h3>
+              <div class="features-grid">
+                
+                <!-- Card 1: Bản đồ -->
+                <div class="feature-card">
+                  <div class="feature-icon-wrapper"><i class="fas fa-map-marked-alt"></i></div>
+                  <h4 class="feature-title">Bản đồ tương tác</h4>
+                  <p class="feature-desc">Khám phá giọng nói, làn điệu dân ca đặc trưng của 6 tỉnh Bắc Trung Bộ trực quan trên bản đồ số GeoJSON.</p>
+                  <button class="feature-btn" onclick="switchTab('map-view')">Khám phá ngay</button>
+                </div>
+                
+                <!-- Card 2: Từ điển -->
+                <div class="feature-card">
+                  <div class="feature-icon-wrapper"><i class="fas fa-book-atlas"></i></div>
+                  <h4 class="feature-title">Từ điển Phương ngữ</h4>
+                  <p class="feature-desc">Tra cứu ngữ nghĩa, bối cảnh văn hóa và các ví dụ thực tế của hệ thống từ vựng địa phương phong phú.</p>
+                  <button class="feature-btn" onclick="switchTab('dictionary-view')">Tra từ</button>
+                </div>
+                
+                <!-- Card 3: Dịch thuật -->
+                <div class="feature-card">
+                  <div class="feature-icon-wrapper"><i class="fas fa-language"></i></div>
+                  <h4 class="feature-title">Dịch thuật thông minh</h4>
+                  <p class="feature-desc">Chuyển đổi các câu nói phương ngữ nặng tính địa phương sang tiếng phổ thông một cách nhanh chóng và chính xác.</p>
+                  <button class="feature-btn" onclick="switchTab('translator-view')">Thử dịch thuật</button>
+                </div>
+                
+                <!-- Card 4: Trò chơi -->
+                <div class="feature-card">
+                  <div class="feature-icon-wrapper"><i class="fas fa-gamepad"></i></div>
+                  <h4 class="feature-title">Thử tài Phương ngữ</h4>
+                  <p class="feature-desc">Tham gia các trò chơi trắc nghiệm nghe giọng đoán vùng, giải nghĩa, ghép cặp từ vựng đầy thú vị.</p>
+                  <button class="feature-btn" onclick="switchTab('quizzes-view')">Chơi ngay</button>
+                </div>
+                
+              </div>
+            </section>
+            
+            <!-- Footer -->
+            <footer class="app-footer">
+              <div class="footer-content">
+                <div class="footer-logo"><i class="fas fa-wave-square"></i> Ngân hàng Giọng nói Số Bắc Trung Bộ</div>
+                <p class="footer-desc">
+                  Dự án phi thương mại hỗ trợ bảo tồn văn hóa vùng miền và nghiên cứu khoa học. Nghiêm cấm mọi hành vi sao chép dữ liệu âm thanh hoặc thương mại hóa tài nguyên của cộng đồng.
+                </p>
+                <div class="footer-divider"></div>
+                <div class="footer-copyright">&copy; 2026 Digital Voice Bank. Bảo tồn bởi cộng đồng Bắc Trung Bộ Việt Nam.</div>
+              </div>
+            </footer>
+            
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 1: INTERACTIVE VOICE MAP -->
+        <!-- ========================================== -->
+        <div class="app-view" id="map-view">
+          <div class="map-view-layout">
+            
+            <div class="map-pane">
+              <!-- Map filters toolbar -->
+              <div class="map-controls">
+                <div class="map-filters">
+                  <select class="filter-select" id="map-filter-age" style="background-color: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-color);">
+                    <option value="all">Mọi độ tuổi</option>
+                    <option value="18-35">Độ tuổi 18-35</option>
+                    <option value="36-55">Độ tuổi 36-55</option>
+                    <option value="56-70">Độ tuổi 56-70</option>
+                    <option value="71+">Độ tuổi trên 70</option>
+                  </select>
+                  <select class="filter-select" id="map-filter-topic" style="background-color: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-color);">
+                    <option value="all">Mọi chủ đề</option>
+                    <option value="Lịch sử & Văn hóa">Lịch sử & Văn hóa</option>
+                    <option value="Giọng ca đặc trưng (Ví Giặm, Ca Huế...)">Giọng ca đặc trưng</option>
+                    <option value="Tổng quan vùng (Địa lý, Đời sống...)">Tổng quan vùng</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Map wrapper viewport -->
+              <div class="map-wrapper" id="geojson-map-container" style="position: relative; overflow: hidden; background: #faf8f5;">
+                <!-- Zoom controls inside map -->
+                <div style="position: absolute; top: 16px; left: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 10;">
+                  <button id="btn-zoom-in" class="btn btn-primary" style="padding: 0; font-size: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface-solid); color: var(--text-main);" title="Phóng to"><i class="fas fa-plus"></i></button>
+                  <button id="btn-zoom-out" class="btn btn-primary" style="padding: 0; font-size: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface-solid); color: var(--text-main);" title="Thu nhỏ"><i class="fas fa-minus"></i></button>
+                  <button id="btn-zoom-reset" class="btn btn-secondary" style="padding: 0; font-size: 12px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: bold; background: var(--bg-surface-solid); border: 1px solid var(--border-color); color: var(--text-main);" title="Đặt lại góc nhìn"><i class="fas fa-undo"></i></button>
+                </div>
+                <!-- The dynamically injected GeoJSON SVG will go here -->
+                <div id="geojson-svg-map" style="width: 100%; height: 100%; transition: transform 0.2s ease-out; transform-origin: center; display: flex; align-items: center; justify-content: center; pointer-events: auto;">
+                  <div style="color: var(--text-muted); font-style: italic; text-align: center; padding: 20px;">Đang tải bản đồ GeoJSON...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIDE DETAIL PANEL -->
+            <div class="side-panel">
+              <div class="side-panel-header">
+                <h3 id="side-panel-province-title">Chọn một tỉnh</h3>
+                <p id="side-panel-province-sub">Nhấp vào bản đồ để khám phá</p>
+                
+                <div class="side-panel-stats">
+                  <div class="substat-card">
+                    <span>Bản ghi</span>
+                    <strong id="side-panel-total-records">0</strong>
+                  </div>
+                  <div class="substat-card">
+                    <span>Loa giọng</span>
+                    <strong id="side-panel-total-contributors">0</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Categorized Lists -->
+              <div class="side-panel-content">
+                
+                <div class="topic-section">
+                  <div class="topic-header">
+                    <i class="fas fa-history"></i>
+                    <span>Lịch sử & Văn hóa</span>
+                  </div>
+                  <div class="audio-list" id="audio-list-history">
+                    <div style="font-size: 12px; color: var(--text-muted); font-style: italic; padding: 4px;">Nhấp chọn tỉnh trên bản đồ.</div>
+                  </div>
+                </div>
+
+                <div class="topic-section">
+                  <div class="topic-header">
+                    <i class="fas fa-music"></i>
+                    <span>Giọng ca đặc trưng</span>
+                  </div>
+                  <div class="audio-list" id="audio-list-singing">
+                    <!-- Items here -->
+                  </div>
+                </div>
+
+                <div class="topic-section">
+                  <div class="topic-header">
+                    <i class="fas fa-compass"></i>
+                    <span>Tổng quan vùng</span>
+                  </div>
+                  <div class="audio-list" id="audio-list-general">
+                    <!-- Items here -->
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Bottom Audio Player -->
+              <div class="audio-player-panel">
+                <div class="player-controls">
+                  <button class="play-pause-btn" id="player-play-btn" onclick="togglePlayPause()">
+                    <i id="player-play-btn-icon" class="fas fa-play"></i>
+                  </button>
+                  <div class="player-track-info">
+                    <div class="track-name" id="track-player-title">Chưa chọn bản ghi</div>
+                    <canvas class="waveform-canvas" id="player-waveform"></canvas>
+                    <div class="player-time" id="track-time-lbl">00:00 / 00:00</div>
+                  </div>
+                </div>
+                
+                <!-- Dual Running Transcript -->
+                <div class="transcript-box">
+                  <div class="transcript-line">
+                    <span class="transcript-label">Phương ngữ:</span>
+                    <span class="transcript-text" id="player-transcript-dialect">-</span>
+                  </div>
+                  <div class="transcript-line standard">
+                    <span class="transcript-label">Phổ thông:</span>
+                    <span class="transcript-text" id="player-transcript-standard">-</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Floating Contribution Button (+) -->
+          <button class="fab-contrib" id="open-contribute-fab" title="Đóng góp ghi âm giọng nói của bạn">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: DIALECT DICTIONARY -->
+        <!-- ========================================== -->
+        <div class="app-view" id="dictionary-view">
+          <div class="dictionary-grid">
+            
+            <div class="dict-sidebar">
+              <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" class="search-input" id="dict-search-input" placeholder="Tìm từ khóa phương ngữ hoặc nghĩa..." />
+              </div>
+              
+              <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                <button class="btn btn-secondary dict-group-filter active" data-region="all" style="padding: 6px 12px; font-size: 12px; border-radius: 20px;">Tất cả</button>
+                <button class="btn btn-secondary dict-group-filter" data-region="thanhhoa" style="padding: 6px 12px; font-size: 12px; border-radius: 20px;">Thanh Hóa</button>
+                <button class="btn btn-secondary dict-group-filter" data-region="nghetinh" style="padding: 6px 12px; font-size: 12px; border-radius: 20px;">Nghệ Tĩnh</button>
+                <button class="btn btn-secondary dict-group-filter" data-region="binhtrithien" style="padding: 6px 12px; font-size: 12px; border-radius: 20px;">Bình Trị Thiên</button>
+              </div>
+
+              <div class="dict-list-container" id="dict-list">
+                <!-- Dialect lexicon elements populated by app.js -->
+              </div>
+              
+              <button class="btn btn-primary" id="open-add-word-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fas fa-plus"></i> Đóng góp từ mới
+              </button>
+            </div>
+
+            <!-- DETAIL DISPLAY COLUMN -->
+            <div class="dict-detail-pane">
+              <div class="dict-detail-empty" id="dict-detail-empty">
+                <i class="fas fa-book-open"></i>
+                <p>Chọn một từ trong danh sách từ điển để xem chi tiết bối cảnh văn hóa.</p>
+              </div>
+              <div id="dict-detail-content" style="display: none;">
+                <div class="dict-detail-header">
+                  <h2 class="dict-detail-word" id="detail-word">mô</h2>
+                  <span class="dict-detail-tag" id="detail-region-tag">Nghệ Tĩnh, Bình Trị Thiên</span>
+                </div>
+                
+                <div class="dict-detail-section">
+                  <h4 class="dict-section-title">Nghĩa tiếng Việt phổ thông</h4>
+                  <div class="dict-meaning-text" id="detail-meaning">đâu, ở đâu, chỗ nào</div>
+                </div>
+
+                <div class="dict-detail-section">
+                  <h4 class="dict-section-title">Ví dụ minh họa</h4>
+                  <div class="dict-example-box">
+                    <div class="dict-example-orig" id="detail-example-orig">"Mi đi mô về rứa?"</div>
+                    <div class="dict-example-trans" id="detail-example-trans">"Mày đi đâu về thế?"</div>
+                  </div>
+                </div>
+
+                <div class="dict-detail-section">
+                  <h4 class="dict-section-title">AI Insights (Tổng khảo lịch sử & văn hóa)</h4>
+                  <div class="ai-insight-box">
+                    <div class="ai-badge">AI Synthesis</div>
+                    <div class="ai-insight-content" id="detail-ai-insight">
+                      Thông tin nguồn gốc văn hóa từ của LLM sẽ hiển thị tại đây...
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 3: DIALECT TRANSLATOR -->
+        <!-- ========================================== -->
+        <div class="app-view" id="translator-view">
+          <div class="translator-container">
+            
+            <div class="glass-card" style="margin-bottom: 0;">
+              <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-language" style="color: var(--color-primary)"></i> Bộ Dịch Phương Ngữ RAG
+              </h3>
+              
+              <!-- API Key settings bar -->
+              <div class="api-key-settings" style="display: flex; gap: 8px; margin-bottom: 16px; padding: 12px; background: rgba(14, 165, 233, 0.05); border: 1px solid rgba(14, 165, 233, 0.1); border-radius: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted);">
+                  <i class="fas fa-key" style="color: var(--color-primary);"></i>
+                  <span>Mở khóa dịch AI bằng Gemini API Key:</span>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="password" id="gemini-api-key-input" placeholder="Nhập API Key (AIzaSy...)" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; border: 1px solid var(--border-color); width: 220px; background-color: var(--bg-surface); color: var(--text-main);" />
+                  <button class="btn btn-primary" id="btn-save-api-key" style="padding: 6px 12px; font-size: 11px; border-radius: 8px; font-weight: 600; cursor: pointer;">Lưu Key</button>
+                </div>
+              </div>
+              
+              <div class="translator-io-box">
+                <!-- Left Input Box -->
+                <div class="textarea-wrap">
+                  <span class="textarea-label" id="translator-lbl-left">Phương ngữ Bắc Trung Bộ</span>
+                  <textarea class="translator-textarea" id="translator-src" placeholder="Nhập câu tiếng địa phương (ví dụ: răng bữa ni mi đi mần trễ rứa)"></textarea>
+                </div>
+
+                <!-- Swap Button -->
+                <button class="swap-languages-btn" id="btn-swap-languages" title="Đảo ngược chiều dịch">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+
+                <!-- Right Output Box -->
+                <div class="textarea-wrap" style="background: rgba(0,0,0,0.15);">
+                  <span class="textarea-label" id="translator-lbl-right">Tiếng Việt Phổ Thông</span>
+                  <div class="translator-output empty" id="translator-dest">Kết quả dịch sẽ hiển thị ở đây...</div>
+                  <button class="copy-btn" id="btn-copy-trans" onclick="navigator.clipboard.writeText(document.getElementById('translator-dest').innerText); alert('Đã sao chép vào clipboard!')" title="Sao chép bản dịch">
+                    <i class="far fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Sample preset suggestions -->
+              <div class="translator-presets-row">
+                <span class="preset-lbl"><i class="fas fa-lightbulb" style="color: var(--color-warning);"></i> Gợi ý câu mẫu:</span>
+                <button class="preset-tag-btn" onclick="setTranslatorPreset('Răng bữa ni mi đi học trễ rứa?')">Răng bữa ni mi đi học trễ rứa?</button>
+                <button class="preset-tag-btn" onclick="setTranslatorPreset('Mệ đi mô rứa mệ ơi')">Mệ đi mô rứa mệ ơi</button>
+                <button class="preset-tag-btn" onclick="setTranslatorPreset('Bữa nay trời mát dữ hôn tui mới qua bển mần chuyện')">Bữa nay trời mát dữ hôn tui mới qua bển mần chuyện</button>
+              </div>
+
+              <!-- Translator Actions Toolbar -->
+              <div class="translator-actions" style="margin-top: 16px;">
+                <div class="translator-warning" id="translator-warning-bar">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>Câu này có một số từ lạ chưa thể đối chiếu từ điển.</span>
+                </div>
+                
+                <button class="btn btn-primary" id="btn-trigger-translate" style="display: flex; align-items: center; gap: 8px;">
+                  <i class="fas fa-magic"></i> Dịch câu phương ngữ
+                </button>
+              </div>
+            </div>
+
+            <!-- Word-by-word matching detail cards from RAG -->
+            <div class="translator-results-detail">
+              <div class="detail-table-title">
+                <i class="fas fa-shapes" style="color: var(--color-primary);"></i>
+                <span>Giải mã cấu trúc cốt từ vựng địa phương</span>
+              </div>
+              
+              <div class="breakdown-grid" id="translator-vocab-card-list">
+                <div style="font-size: 13px; color: var(--text-muted); font-style: italic;">
+                  Nhập câu phương ngữ và bấm dịch để phân tích chi tiết.
+                </div>
+              </div>
+              
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 20px; font-style: italic; text-align: right;">
+                * Lưu ý: Kết quả do mô hình AI xử lý kết hợp RAG chỉ mang tính chất tham khảo.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: CHATBOT ASSISTANT -->
+        <!-- ========================================== -->
+        <div class="app-view" id="chatbot-view">
+          <div class="chatbot-container">
+            
+            <!-- Quick questions sidebar -->
+            <div class="chatbot-sidebar">
+              <div class="chatbot-intro">
+                <h3 style="color: var(--color-primary);"><i class="fas fa-robot"></i> Trợ lý Sông Núi</h3>
+                <p>Giải đáp thắc mắc về phương ngữ và nét đặc trưng văn hóa 6 tỉnh Bắc Trung Bộ thông qua truy vấn RAG.</p>
+              </div>
+              
+              <div style="font-weight: 700; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-top: 16px;">Câu hỏi nhanh đề xuất</div>
+              <div class="quick-queries-list">
+                <button class="quick-query-btn" data-query="Răng nghĩa là gì?">"Răng" nghĩa là gì?</button>
+                <button class="quick-query-btn" data-query="Mô, tê, răng, rứa nghĩa là gì?">Từ chỉ vị trí "Mô, tê, răng, rứa"</button>
+                <button class="quick-query-btn" data-query="Người Huế dặn con những từ nào?">Người Huế dặn con thế nào?</button>
+                <button class="quick-query-btn" data-query="So sánh tiếng Nghệ Tĩnh và tiếng Nam Bộ">So sánh tiếng Nghệ Tĩnh & Nam Bộ</button>
+              </div>
+            </div>
+
+            <!-- Chat main workspace -->
+            <div class="chatbot-main">
+              <div class="chat-messages" id="chat-messages-container">
+                <!-- Welcome Bot Message -->
+                <div class="chat-bubble bot">
+                  Chào bạn! Tôi là **Trợ lý văn hóa Thổ âm Sông núi**, chuyên cố vấn và đàm thoại các kiến thức văn hóa, thổ âm khu vực Bắc Trung Bộ. Bạn có câu hỏi nào về từ ngữ miền Trung hay muốn tìm hiểu các giọng ca đặc trưng không?
+                </div>
+              </div>
+              
+              <!-- Input textbox bar -->
+              <div class="chat-input-bar">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Hỏi Trợ lý Sông Núi (ví dụ: mô tê răng rứa là gì...)" />
+                <button class="chat-send-btn" id="chat-send-btn">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 5: MINI GAMES & QUIZZES -->
+        <!-- ========================================== -->
+        <div class="app-view" id="quizzes-view">
+          
+          <!-- Hub selection screen -->
+          <div class="games-hub" id="games-hub">
+            
+            <div class="game-hub-card" onclick="window.voiceBankGames.launchGame(1)">
+              <div class="game-hub-icon"><i class="fas fa-headphones-alt"></i></div>
+              <div class="game-hub-info">
+                <h3>Game 1: Nghe giọng đoán vùng</h3>
+                <p>Lắng nghe đoạn audio ngắn từ 5-10 giây và phán đoán xem người nói thuộc cụm phương ngữ nào.</p>
+                <div style="font-size: 12px; color: var(--color-primary); margin-top: 10px; font-weight: 600;">Điểm kỷ lục: <span id="hs-g1">0</span></div>
+              </div>
+            </div>
+
+            <div class="game-hub-card purple-theme" onclick="window.voiceBankGames.launchGame(2)">
+              <div class="game-hub-icon"><i class="fas fa-align-left"></i></div>
+              <div class="game-hub-info">
+                <h3>Game 2: Giải nghĩa phương ngữ</h3>
+                <p>Thử thách trắc nghiệm nghĩa chuẩn của các từ địa phương Thanh - Nghệ - Tĩnh - Bình - Trị - Thiên.</p>
+                <div style="font-size: 12px; color: var(--color-purple); margin-top: 10px; font-weight: 600;">Điểm kỷ lục: <span id="hs-g2">0</span></div>
+              </div>
+            </div>
+
+            <div class="game-hub-card purple-theme" onclick="window.voiceBankGames.launchGame(3)">
+              <div class="game-hub-icon"><i class="fas fa-link"></i></div>
+              <div class="game-hub-info">
+                <h3>Game 3: Ghép cặp từ vựng</h3>
+                <p>Nối các phương ngữ độc đáo ở cột bên trái với nghĩa phổ thông thích hợp ở cột bên phải.</p>
+                <div style="font-size: 12px; color: var(--color-purple); margin-top: 10px; font-weight: 600;">Điểm kỷ lục: <span id="hs-g3">0</span></div>
+              </div>
+            </div>
+
+            <div class="game-hub-card" onclick="window.voiceBankGames.launchGame(4)">
+              <div class="game-hub-icon"><i class="fas fa-tag"></i></div>
+              <div class="game-hub-info">
+                <h3>Game 4: Đoán chủ đề bản ghi</h3>
+                <p>Dựa trên nội dung nói hoặc giai điệu, đoán xem bản ghi âm thuộc chủ đề văn hóa nào.</p>
+                <div style="font-size: 12px; color: var(--color-primary); margin-top: 10px; font-weight: 600;">Điểm kỷ lục: <span id="hs-g4">0</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Active Game Arena container -->
+          <div class="game-arena" id="game-arena">
+            <div class="game-header">
+              <div class="game-header-title">
+                <button class="back-to-hub" onclick="window.voiceBankGames.initHub()"><i class="fas fa-chevron-left"></i> Quay lại Hub</button>
+                <h3 id="game-title">Tên trò chơi</h3>
+              </div>
+              <div class="game-scoreboard">
+                <span class="score-badge">Đúng: <span id="game-score-val">0</span></span>
+                <span class="score-badge wrong">Sai: <span id="game-wrong-val">0</span></span>
+              </div>
+            </div>
+            
+            <div class="game-body" id="game-arena-content">
+              <!-- Content loaded dynamically by games.js -->
+            </div>
+            
+            <!-- Result/Feedback display block -->
+            <div class="quiz-feedback" id="quiz-feedback">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 6: ADMIN REVIEW PANEL -->
+        <!-- ========================================== -->
+        <div class="app-view" id="admin-view">
+          <div class="admin-grid">
+            
+            <div class="admin-sidebar">
+              <div style="font-weight: 700; font-size: 13px; text-transform: uppercase; color: var(--text-muted);"><i class="fas fa-hourglass-half"></i> Hàng đợi kiểm duyệt</div>
+              <div class="admin-list-container" id="admin-queue-list">
+                <!-- User contributed pending uploads loaded here -->
+              </div>
+            </div>
+
+            <!-- ADMIN RECORD DETAIL PANE -->
+            <div class="admin-detail-pane">
+              <div class="admin-detail-empty" id="admin-detail-empty">
+                <i class="fas fa-folder-open"></i>
+                <p>Chọn một bản ghi trong hàng đợi kiểm duyệt để kiểm tra kết quả AI và duyệt lên bản đồ chính.</p>
+              </div>
+
+              <div id="admin-detail-content" style="display: none; flex-direction: column; height: 100%;">
+                <div class="admin-detail-header">
+                  <div class="admin-detail-title">
+                    <h3 id="admin-detail-title-txt">Ghi âm đóng góp</h3>
+                    <p id="admin-detail-speaker">Người nói: Nguyễn Văn A | Tỉnh: Nghệ An</p>
+                  </div>
+                  
+                  <button class="btn btn-primary" id="admin-play-btn" style="border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 16px;">
+                    <i class="fas fa-play"></i>
+                  </button>
+                </div>
+
+                <div class="admin-section-grid">
+                  <div class="admin-card-panel">
+                    <h4 class="dict-section-title">Nhãn dự đoán từ AI Pipeline</h4>
+                    <div class="admin-ai-badge-row" id="admin-ai-tags-row">
+                      <!-- AI Pilled tags -->
+                    </div>
+                  </div>
+                  <div class="admin-card-panel" style="background: rgba(255, 255, 255, 0.01);">
+                    <h4 class="dict-section-title">Hướng dẫn của Admin</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Hãy lắng nghe kỹ đoạn âm thanh. Nếu phát hiện từ ngữ xúc phạm hoặc tiếng ồn quá lớn phá hỏng tệp ghi âm, vui lòng thực hiện Xóa bỏ. Nếu tệp tốt, bấm Duyệt.</p>
+                  </div>
+                </div>
+
+                <div class="admin-card-panel" style="margin-bottom: 24px;">
+                  <h4 class="dict-section-title">Dự đoán văn bản STT</h4>
+                  <div class="transcript-box" style="background: rgba(0,0,0,0.15); margin-top: 8px;">
+                    <div class="transcript-line">
+                      <span class="transcript-label">Mô tả giọng gốc:</span>
+                      <span class="transcript-text" id="admin-trans-dialect">-</span>
+                    </div>
+                    <div class="transcript-line standard">
+                      <span class="transcript-label">Dịch chuẩn hóa:</span>
+                      <span class="transcript-text" id="admin-trans-standard">-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="admin-actions-row">
+                  <button class="btn btn-secondary" id="admin-btn-delete" style="color: var(--color-danger); border-color: rgba(239, 68, 68, 0.3);"><i class="fas fa-trash-alt"></i> Xóa bỏ</button>
+                  <button class="btn btn-primary" id="admin-btn-approve" style="background: var(--color-success); color: #fff; box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);"><i class="fas fa-check"></i> Duyệt Đăng tải</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD RECORD / CONTRIBUTE FLOW -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="contribution-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-microphone-alt"></i> Đóng góp giọng nói của bạn</h3>
+        <button class="close-modal" id="close-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="contrib-form" onsubmit="return false;">
+          
+          <div class="form-group">
+            <label for="contrib-title">Tên/Tiêu đề đoạn ghi âm *</label>
+            <input type="text" class="form-control" id="contrib-title" placeholder="Ví dụ: Lời chào tiếng Huế, Sự tích làng bè..." required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contrib-speaker">Tên người nói *</label>
+              <input type="text" class="form-control" id="contrib-speaker" placeholder="Nhập tên hoặc ẩn danh" required />
+            </div>
+            <div class="form-group">
+              <label for="contrib-province">Vùng / Tỉnh *</label>
+              <select class="form-control" id="contrib-province" required style="background-color:#0f1726; color:white;">
+                <option value="" disabled selected>Chọn Tỉnh thành</option>
+                <option value="Thanh Hóa">Thanh Hóa</option>
+                <option value="Nghệ An">Nghệ An</option>
+                <option value="Hà Tĩnh">Hà Tĩnh</option>
+                <option value="Quảng Bình">Quảng Bình</option>
+                <option value="Quảng Trị">Quảng Trị</option>
+                <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contrib-age">Nhóm tuổi (Self-report) *</label>
+              <select class="form-control" id="contrib-age" required style="background-color:#0f1726; color:white;">
+                <option value="" disabled selected>Chọn tuổi</option>
+                <option value="18-35">18-35 tuổi</option>
+                <option value="36-55">36-55 tuổi</option>
+                <option value="56-70">56-70 tuổi</option>
+                <option value="71+">Trên 70 tuổi</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contrib-gender">Giới tính</label>
+              <select class="form-control" id="contrib-gender" style="background-color:#0f1726; color:white;">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contrib-topic">Chủ đề ghi âm *</label>
+            <select class="form-control" id="contrib-topic" required style="background-color:#0f1726; color:white;">
+              <option value="Lịch sử & Văn hóa">Lịch sử & Văn hóa (Chuyện cổ, địa danh...)</option>
+              <option value="Giọng ca đặc trưng (Ví Giặm, Ca Huế...)">Giọng ca đặc trưng (Ví, Giặm, ca Huế, hò...)</option>
+              <option value="Tổng quan vùng (Địa lý, Đời sống...)">Tổng quan vùng (Kể chuyện thường nhật, sinh hoạt...)</option>
+            </select>
+          </div>
+
+          <!-- Microphone Recording Control area -->
+          <div class="record-btn-container">
+            <div class="mic-circle" id="mic-trigger-btn">
+              <i class="fas fa-microphone"></i>
+            </div>
+            <span class="record-status-text" id="record-status">Chưa ghi âm</span>
+            <strong style="font-size: 13px; color: var(--color-primary);" id="record-time-text">00:00 (Nhấn mic để bắt đầu thu âm)</strong>
+            
+            <div style="font-size: 12px; color: var(--text-muted); margin: 8px 0;">HOẶC</div>
+            
+            <!-- Fallback Upload tệp -->
+            <label for="contrib-file" class="btn btn-secondary" style="font-size: 12px; padding: 6px 12px;">
+              <i class="fas fa-upload"></i> Tải lên tệp âm thanh sẵn có (.mp3, .wav)
+            </label>
+            <input type="file" id="contrib-file" accept="audio/*" style="display: none;" />
+          </div>
+
+          <label class="consent-checkbox">
+            <input type="checkbox" id="contrib-consent" required />
+            <span>Tôi đồng ý cung cấp giọng nói của mình cho dự án phi thương mại "Ngân hàng Giọng nói Số Bắc Trung Bộ" với mục đích nghiên cứu học thuật và bảo tồn văn hóa. *</span>
+          </label>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-contrib">Hủy bỏ</button>
+        <button class="btn btn-primary" id="btn-submit-contrib" disabled>Gửi bản ghi âm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: AI PROCESSING PIPELINE LOADER -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="ai-pipeline-modal" style="z-index: 101;">
+    <div class="modal-card" style="width: 450px;">
+      <div class="modal-header">
+        <h3>Pipeline xử lý AI Tự động</h3>
+      </div>
+      <div class="modal-body">
+        <div class="ai-loader-container">
+          <div class="ai-pulse-graphic">
+            <div class="ai-circle-ring"></div>
+            <i class="fas fa-brain"></i>
+          </div>
+          
+          <strong style="font-size: 15px;">Đang phân tích tệp âm thanh qua các mô hình AI...</strong>
+          
+          <div class="ai-steps">
+            <div class="ai-step pending" id="step-stt">
+              <i class="far fa-circle"></i>
+              <span>Chuyển tự âm thanh STT (PhoWhisper)</span>
+            </div>
+            <div class="ai-step pending" id="step-predict">
+              <i class="far fa-circle"></i>
+              <span>Dự đoán Nhóm tuổi & Giới tính (wav2vec2)</span>
+            </div>
+            <div class="ai-step pending" id="step-verify">
+              <i class="far fa-circle"></i>
+              <span>Xác minh độ khớp phương ngữ tỉnh đã chọn</span>
+            </div>
+            <div class="ai-step pending" id="step-tag">
+              <i class="far fa-circle"></i>
+              <span>LLM Tự động gắn tag & tóm tắt bối cảnh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD WORD TO DICTIONARY -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="add-word-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-pen-nib"></i> Đóng góp từ địa phương mới</h3>
+        <button class="close-modal" id="close-word-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="add-word-form" onsubmit="return false;">
+          
+          <div class="form-group">
+            <label for="word-input">Từ phương ngữ gốc *</label>
+            <input type="text" class="form-control" id="word-input" placeholder="Ví dụ: răng, tê, rú..." required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="word-meaning-input">Nghĩa phổ thông *</label>
+              <input type="text" class="form-control" id="word-meaning-input" placeholder="Ví dụ: sao, tại sao..." required />
+            </div>
+            <div class="form-group">
+              <label for="word-region">Cụm Phương ngữ phân vùng *</label>
+              <select class="form-control" id="word-region" required style="background-color:#0f1726; color:white;">
+                <option value="" disabled selected>Chọn cụm</option>
+                <option value="Thanh Hóa">Thanh Hóa</option>
+                <option value="Nghệ Tĩnh">Nghệ Tĩnh (Nghệ An, Hà Tĩnh)</option>
+                <option value="Bình Trị Thiên">Bình Trị Thiên (Quảng Bình, Quảng Trị, Huế)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="word-example">Đặt một câu ví dụ bằng phương ngữ gốc *</label>
+            <input type="text" class="form-control" id="word-example" placeholder="Ví dụ: Răng mi đi học trễ rứa?" required />
+          </div>
+
+          <div class="form-group">
+            <label for="word-example-trans">Dịch câu ví dụ sang tiếng phổ thông *</label>
+            <input type="text" class="form-control" id="word-example-trans" placeholder="Ví dụ: Sao mày đi học muộn thế?" required />
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-word">Hủy bỏ</button>
+        <button class="btn btn-primary" id="btn-submit-word">Gửi đóng góp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet Script for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- App Custom Scripts -->
+  <script src="data.js"></script>
+  <script src="games.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
